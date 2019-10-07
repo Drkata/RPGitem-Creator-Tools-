@@ -101,9 +101,26 @@
                         End If
                         monFichier.WriteLine("    triggers: " & SelectOption((i * 15)).Text)
                     ElseIf power = "criticalhit" Then
-                        monFichier.WriteLine("")
+                        monFichier.WriteLine("    setBaseDamage: " & SelectOption((i * 15)).Text)
+                        monFichier.WriteLine("    chance: " & SelectValue((i * 15)).Value & "." & SelectValue((i * 15) + 1).Value)
+                        monFichier.WriteLine("    backstabChance: " & SelectValue((i * 15) + 2).Value & "." & SelectValue((i * 15) + 3).Value)
+                        If SelectOption((i * 15) + 1).Text = "" Then
+                        Else
+                            monFichier.WriteLine("    condition: " & SelectOption((i * 15) + 1).Text)
+                        End If
+                        monFichier.WriteLine("    backstabFactor: " & SelectValue((i * 15) + 6).Value & "." & SelectValue((i * 15) + 7).Value)
+                        monFichier.WriteLine("    factor: " & SelectValue((i * 15) + 4).Value & "." & SelectValue((i * 15) + 5).Value)
                     ElseIf power = "headshot" Then
-                        monFichier.WriteLine("")
+                        monFichier.WriteLine("    setBaseDamage: " & SelectOption((i * 15) + 3).Text)
+                        monFichier.WriteLine("    particleEnemy: " & SelectOption((i * 15)).Text)
+                        monFichier.WriteLine("    cost: " & SelectValue((i * 15)).Value)
+                        If SelectOption((i * 15) + 4).Text = "" Then
+                        Else
+                            monFichier.WriteLine("    condition: " & SelectOption((i * 15) + 4).Text)
+                        End If
+                        monFichier.WriteLine("    soundEnemy: " & SelectOption((i * 15) + 1).Text)
+                        monFichier.WriteLine("    factor: " & SelectValue((i * 15) + 1).Value & "." & SelectValue((i * 15) + 2).Value)
+                        monFichier.WriteLine("    soundSelf: " & SelectOption((i * 15) + 2).Text)
                     End If
                 Next
             End If
@@ -304,76 +321,110 @@
                 With InfoText(j + 1)
                     .Parent = PanelPower(k)
                     .Location = New Point(5, 55)
-                    .Size = New Size(65, 20)
+                    .Size = New Size(65, 30)
                     .BackColor = Color.White
                     .BorderStyle = BorderStyle.Fixed3D
-                    .Text = ("CritChance:")
+                    .Text = ("CritChance (Int,Des):")
                 End With
                 With SelectValue(j)
                     .Parent = PanelPower(k)
                     .Location = New Point(72, 55)
+                    .Size = New Point(50, DefaultSize.Height)
                     .Value = 20
-                    .Maximum = 100
+                    .Maximum = 99999
                     .Minimum = 0
-                    .DecimalPlaces = 1
+                End With
+                With SelectValue(j + 1)
+                    .Parent = PanelPower(k)
+                    .Location = New Point(132, 55)
+                    .Size = New Point(50, DefaultSize.Height)
+                    .Value = 0
+                    .Maximum = 99
+                    .Minimum = 0
                 End With
 
                 '1:2'
                 With InfoText(j + 2)
                     .Parent = PanelPower(k)
-                    .Location = New Point(5, 80)
-                    .Size = New Size(65, 30)
+                    .Location = New Point(5, 90)
+                    .Size = New Size(65, 45)
                     .BackColor = Color.White
                     .BorderStyle = BorderStyle.Fixed3D
-                    .Text = ("BackStab Chance:")
+                    .Text = ("BackStab Chance (Int, Des):")
                 End With
-                With SelectValue(j + 1)
+                With SelectValue(j + 2)
                     .Parent = PanelPower(k)
-                    .Location = New Point(72, 80)
+                    .Location = New Point(72, 90)
+                    .Size = New Point(50, DefaultSize.Height)
                     .Value = 20
-                    .Maximum = 100
+                    .Maximum = 99999
                     .Minimum = 0
-                    .DecimalPlaces = 1
+                End With
+                With SelectValue(j + 3)
+                    .Parent = PanelPower(k)
+                    .Location = New Point(132, 90)
+                    .Size = New Point(50, DefaultSize.Height)
+                    .Value = 0
+                    .Maximum = 99
+                    .Minimum = 0
                 End With
 
                 '1:3'
                 With InfoText(j + 3)
                     .Parent = PanelPower(k)
-                    .Location = New Point(5, 115)
-                    .Size = New Size(65, 20)
+                    .Location = New Point(5, 140)
+                    .Size = New Size(65, 30)
                     .BackColor = Color.White
                     .BorderStyle = BorderStyle.Fixed3D
-                    .Text = ("CritFactor:")
+                    .Text = ("CritFactor (Int,Des):")
                 End With
-                With SelectValue(j + 2)
+                With SelectValue(j + 4)
                     .Parent = PanelPower(k)
-                    .Location = New Point(72, 115)
-                    .Value = 1.5
+                    .Location = New Point(72, 140)
+                    .Size = New Size(50, DefaultSize.Height)
+                    .Value = 1
+                    .Maximum = 99999
                     .Minimum = 0
-                    .DecimalPlaces = 1
+                End With
+                With SelectValue(j + 5)
+                    .Parent = PanelPower(k)
+                    .Location = New Point(132, 140)
+                    .Size = New Size(50, DefaultSize.Height)
+                    .Value = 5
+                    .Maximum = 99
+                    .Minimum = 0
                 End With
 
                 '1:4'
                 With InfoText(j + 4)
                     .Parent = PanelPower(k)
-                    .Location = New Point(5, 140)
-                    .Size = New Size(65, 30)
+                    .Location = New Point(5, 175)
+                    .Size = New Size(65, 45)
                     .BackColor = Color.White
                     .BorderStyle = BorderStyle.Fixed3D
-                    .Text = ("BackStab Factor:")
+                    .Text = ("BackStab Factor (Int,Des):")
                 End With
-                With SelectValue(j + 3)
+                With SelectValue(j + 6)
                     .Parent = PanelPower(k)
-                    .Location = New Point(72, 140)
-                    .Value = 1.5
+                    .Location = New Point(72, 175)
+                    .Size = New Size(50, DefaultSize.Height)
+                    .Value = 1
+                    .Maximum = 99999
                     .Minimum = 0
-                    .DecimalPlaces = 1
+                End With
+                With SelectValue(j + 7)
+                    .Parent = PanelPower(k)
+                    .Location = New Point(132, 175)
+                    .Size = New Size(50, DefaultSize.Height)
+                    .Value = 5
+                    .Maximum = 99
+                    .Minimum = 0
                 End With
 
                 '1:5'
                 With InfoText(j + 5)
                     .Parent = PanelPower(k)
-                    .Location = New Point(5, 175)
+                    .Location = New Point(5, 225)
                     .Size = New Size(65, 30)
                     .BackColor = Color.White
                     .BorderStyle = BorderStyle.Fixed3D
@@ -381,7 +432,7 @@
                 End With
                 With SelectOption(j)
                     .Parent = PanelPower(k)
-                    .Location = New Point(72, 175)
+                    .Location = New Point(72, 225)
                     .Text = "false"
                     .Items.Add("true")
                     .Items.Add("false")
@@ -390,7 +441,7 @@
                 '1:6'
                 With InfoText(j + 6)
                     .Parent = PanelPower(k)
-                    .Location = New Point(5, 210)
+                    .Location = New Point(5, 260)
                     .Size = New Size(65, 20)
                     .BackColor = Color.White
                     .BorderStyle = BorderStyle.Fixed3D
@@ -398,7 +449,7 @@
                 End With
                 With SelectOption(j + 1)
                     .Parent = PanelPower(k)
-                    .Location = New Point(72, 210)
+                    .Location = New Point(72, 260)
                 End With
                 'END OPTIONS'
 
@@ -453,31 +504,40 @@
                 With InfoText(j + 3)
                     .Parent = PanelPower(k)
                     .Location = New Point(5, 115)
-                    .Size = New Size(65, 20)
+                    .Size = New Size(65, 30)
                     .BackColor = Color.White
                     .BorderStyle = BorderStyle.Fixed3D
-                    .Text = ("Factor:")
+                    .Text = ("Factor (Int,Des):")
                 End With
                 With SelectValue(j + 1)
                     .Parent = PanelPower(k)
                     .Location = New Point(72, 115)
-                    .Value = 1.5
+                    .Size = New Size(50, DefaultSize.Height)
+                    .Value = 1
                     .Minimum = 0
-                    .DecimalPlaces = 1
+                    .Maximum = 99999
+                End With
+                With SelectValue(j + 2)
+                    .Parent = PanelPower(k)
+                    .Location = New Point(132, 115)
+                    .Size = New Size(50, DefaultSize.Height)
+                    .Value = 5
+                    .Minimum = 0
+                    .Maximum = 99
                 End With
 
                 '2:4'
                 With InfoText(j + 4)
                     .Parent = PanelPower(k)
-                    .Location = New Point(5, 140)
+                    .Location = New Point(5, 150)
                     .Size = New Size(65, 30)
                     .BackColor = Color.White
                     .BorderStyle = BorderStyle.Fixed3D
                     .Text = ("Sound Enemy:")
                 End With
-                With SelectOption(j + 3)
+                With SelectOption(j + 1)
                     .Parent = PanelPower(k)
-                    .Location = New Point(72, 140)
+                    .Location = New Point(72, 150)
                     .Text = "false"
                     .Items.Add("true")
                     .Items.Add("false")
@@ -486,15 +546,15 @@
                 '2:5'
                 With InfoText(j + 5)
                     .Parent = PanelPower(k)
-                    .Location = New Point(5, 175)
+                    .Location = New Point(5, 185)
                     .Size = New Size(65, 20)
                     .BackColor = Color.White
                     .BorderStyle = BorderStyle.Fixed3D
                     .Text = ("SoundSelf:")
                 End With
-                With SelectOption(j + 4)
+                With SelectOption(j + 2)
                     .Parent = PanelPower(k)
-                    .Location = New Point(72, 175)
+                    .Location = New Point(72, 185)
                     .Text = "false"
                     .Items.Add("true")
                     .Items.Add("false")
@@ -503,15 +563,32 @@
                 '2:6'
                 With InfoText(j + 6)
                     .Parent = PanelPower(k)
-                    .Location = New Point(5, 200)
+                    .Location = New Point(5, 210)
+                    .Size = New Size(65, 30)
+                    .BackColor = Color.White
+                    .BorderStyle = BorderStyle.Fixed3D
+                    .Text = ("SetBase Damage:")
+                End With
+                With SelectOption(j + 3)
+                    .Parent = PanelPower(k)
+                    .Location = New Point(72, 210)
+                    .Text = "false"
+                    .Items.Add("true")
+                    .Items.Add("false")
+                End With
+
+                '2:7'
+                With InfoText(j + 7)
+                    .Parent = PanelPower(k)
+                    .Location = New Point(5, 245)
                     .Size = New Size(65, 20)
                     .BackColor = Color.White
                     .BorderStyle = BorderStyle.Fixed3D
                     .Text = ("Condition:")
                 End With
-                With SelectOption(j + 5)
+                With SelectOption(j + 4)
                     .Parent = PanelPower(k)
-                    .Location = New Point(72, 200)
+                    .Location = New Point(72, 245)
                 End With
                 'END OPTIONS'
         End Select
